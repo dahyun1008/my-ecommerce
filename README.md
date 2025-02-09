@@ -34,3 +34,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### 참고사항
+- 풀스택의 전반적인 프로젝트 방법에 대해 이해하기 위해 프로젝트를 따라 해본 실습입니다.
+- 기존 프로젝트는 버전 차이로(page 폴더가 사용되었으나, 이제 app 폴더를 이용해야 함.) 여러 가지 구현 차이가 있어서 플스택에 대해 학습하며 버전에 맞게 구현합니다.
+- 그 과정에서 서버와의 연동, 페이지 이동, 스타일, 프로젝트의 파일구조와 역할 등 전반적인 풀스택 지식 습득을 목표로 했습니다.
