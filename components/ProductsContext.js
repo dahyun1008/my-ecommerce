@@ -1,30 +1,33 @@
 "use client";
+import dynamic from "next/dynamic";
 import { createContext } from "react";
 import { useEffect, useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
+
+const NoSSRProductsContextProvider = dynamic(() => Promise.resolve(ProductsContextProvider), { ssr: false });
 
 export const ProductsContext = createContext({
     selectedProducts: [],
     setSelectedProducts: ()=>{}
 });
 
-export function ProductsContextProvider({children}){
-    const [selectedProducts, setSelectedProducts] = useState(() => {
+function ProductsContextProvider({children}){
+    const [selectedProducts, setSelectedProducts] = useState(null);
+
+    useEffect(() => {
         if (typeof window !== "undefined") {
             try {
                 const cartData = localStorage.getItem("cart");
-                const parsedData = cartData ? JSON.parse(cartData) : [];
-                return Array.isArray(parsedData) ? parsedData : [];
+                const parseDate = cartData ? JSON.parse(cartData) : [];
+                setSelectedProducts(Array.isArray(parseDate) ? parseDate : []);
             } catch (error) {
-                console.error("Error parsing localStorage data:", error);
-                return [];
+                console.error("Error parsing localStorage daa:", error);
+                setSelectedProducts([]);
             }
         }
-        return [];
-    });
+    }, []);
 
     useEffect(() => {
-        if (Array.isArray(selectedProducts)) {
+        if (selectedProducts !== null) {
             try {
                 localStorage.setItem("cart", JSON.stringify(selectedProducts));
             } catch (error) {
@@ -33,9 +36,15 @@ export function ProductsContextProvider({children}){
         }
     }, [selectedProducts]);
 
+    if (selectedProducts === null) {
+        return null;
+    }
+
     return (
         <ProductsContext.Provider value={{ selectedProducts: selectedProducts || [], setSelectedProducts }}>
             {children}
         </ProductsContext.Provider>
     );
 }
+
+export default NoSSRProductsContextProvider;
