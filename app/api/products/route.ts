@@ -6,8 +6,17 @@ export async function findAllProducts() {
     return Product.find().exec();
 }
 
-export async function GET() {  // 👈 GET 메서드를 명시적으로 정의해야 함!
+export async function GET(request) {  // 👈 GET 메서드를 명시적으로 정의해야 함!
     await initMongoose();
-    const products = await findAllProducts();
-    return NextResponse.json(products);
+    
+    const {searchParams} = new URL(request.url);
+    const ids = searchParams.get("ids");
+    if (ids) {
+        const productIds = ids.split(',');
+        const products = await Product.find({_id: {$in: productIds}}).exec();
+        return NextResponse.json(products);
+    } else {
+        const products = await findAllProducts();
+        return NextResponse.json(products);
+    }
 }

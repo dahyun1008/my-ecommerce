@@ -38,7 +38,7 @@ export default function Home() {
                   <h2 className="text-2xl py-5 capitalize">{categoryName}</h2>
                   <div className="flex -mx-5 overflow-x-scroll snap-x scrollbar-hide">
                     {products.filter(p => p.category === categoryName).map(productInfo => (
-                      <div key={productInfo._id} className='px-5 snap-start'>
+                      <div key={productInfo._id} className='px-5 snap-start text-gray-500'>
                         <Product { ...productInfo} />
                       </div>
                     ))}

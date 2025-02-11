@@ -7,7 +7,7 @@ const NoSSRProductsContextProvider = dynamic(() => Promise.resolve(ProductsConte
 
 export const ProductsContext = createContext({
     selectedProducts: [],
-    setSelectedProducts: ()=>{}
+    setSelectedProducts: () => {}
 });
 
 function ProductsContextProvider({children}){

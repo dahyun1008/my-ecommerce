@@ -2,7 +2,7 @@ import Footer from "./Footer";
 
 export default function Layout({children}) {
     return (
-        <div>
+        <div className="bg-white text-black">
             <div className="">
                 {children}
             </div>
